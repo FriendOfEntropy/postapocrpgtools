@@ -1,0 +1,12 @@
+[Desktop Entry]
+Type=Application
+Name=Post Apoc RPG Tools
+Comment=Post Apocalyptic Open Game License D20 Role Playing Game Utilities
+GenericName=Post Apoc RPG Tools
+Exec=com.github.friendofentropy.postapocrpgtools
+Icon=com.github.friendofentropy.postapocrpgtools
+Terminal=false
+Categories=GNOME;GTK;Games;
+Keywords=rpg;game;utilities;
+X-GNOME-Gettext-Domain=com.github.friendofentropy.postapocrpgtools
+X-GNOME-UsesNotifications=false
