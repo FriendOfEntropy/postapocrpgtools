@@ -28,7 +28,10 @@ dependencies = [
 ]
 
 code_files = files(
-    'src/Application.vala'
+    'src/Application.vala',
+    'src/Constants.vala',
+    'src/MainWindow.vala',
+    'src/CharacterGeneratorView.vala'
 )
 
 executable(

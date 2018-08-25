@@ -1,93 +1,75 @@
-using Gtk;
-using Gee;
-//using Gsl;
-using WebKit;
-using Granite;
-//using RPGCore;
-//using GXml;
+/*
+* Copyright (c) 2018 FriendOfEntropy (https://github.com/FriendOfEntropy/postapocrpgtools)
+*
+* This program is free software; you can redistribute it and/or
+* modify it under the terms of the GNU LESSER GENERAL PUBLIC 
+* LICENSE as published by the Free Software Foundation; either
+* version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+* Lesser General Public License for more details.
+*
+* You should have received a copy of the GNU Lesser General Public
+* License along with this program; if not, write to the
+* Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+* Boston, MA 02110-1301 USA
+*
+* Authored by: FriendOfEntropy <FriendOfEntropy@gmail.com>
+*/
 
+namespace PostApocRPGTools { 
 
-public class Application : Gtk.ApplicationWindow {
-    private Gtk.Button rollButton;
-    private WebView web_view;
-    private Widgets.SourceList source_list;
+	public class Application : Gtk.Application {
+		public static GLib.Settings settings;
 
-    public Application () {
+		private MainWindow? mainWindow = null;
 
-        // Prepare Gtk.Window:
-        this.title = "My Gtk.TextView";
-        this.window_position = Gtk.WindowPosition.CENTER;
-        this.destroy.connect (Gtk.main_quit);
-        this.set_default_size (800, 600);
+		construct {
+			application_id = "com.github.friendofentropy.postapocrpgtools";
+			//  settings = new Settings ("com.github.friendofentropy.postapocrpgtools");
+		}
 
-        var character_category = new Widgets.SourceList.ExpandableItem ("Characters");
-        var dice_category = new Widgets.SourceList.ExpandableItem ("Dice");
+		public static int main (string[] args) {
+			Gtk.init(ref args);
+			Application app = new Application ();
+			return app.run (args);
+		}
 
-        var mutant_item = new Widgets.SourceList.Item ("Mutant");
-        character_category.add (mutant_item);
+		public override void activate () {
+			if (mainWindow != null) {
+				mainWindow.present ();
+			} 
+			else {
+				mainWindow = new MainWindow ();
+ 
+				//  int window_x = settings.get_int ("window-x");
+				//  int window_y = settings.get_int ("window-y");
 
-        var dice_item = new Widgets.SourceList.Item ("Dice");
-        dice_category.add (dice_item);        
+				//  if (window_x != -1 ||  window_y != -1) {
+				//  	mainWindow.move (window_x, window_y);
+				//  }
 
-        var range_item = new Widgets.SourceList.Item ("Range");
-        dice_category.add (range_item);        
+				add_window (mainWindow);
+				mainWindow.show_all ();
+			}
 
-        source_list = new Widgets.SourceList ();
+			SimpleAction quitAction = new SimpleAction ("quit", null);
 
-        var root = source_list.root;
-        root.add (character_category);
-        root.add (dice_category);
+			add_action (quitAction);
+			set_accels_for_action ("app.quit", {"Escape"});
 
-        Gtk.Grid webKitGrid = new Gtk.Grid();  // Create a table.
-        web_view = new WebView ();
-        web_view.hexpand = true;
-        web_view.vexpand = true;
-        var scrolled_window = new ScrolledWindow (null, null);
-        scrolled_window.hexpand = true;
-        scrolled_window.vexpand = true;        
-        scrolled_window.set_policy (PolicyType.AUTOMATIC, PolicyType.AUTOMATIC);
-        scrolled_window.add (this.web_view);
-        webKitGrid.attach(scrolled_window, 0, 0, 5, 5);
+			quitAction.activate.connect (() => {
+				if (mainWindow != null) {
+					mainWindow.destroy ();
+				}
+			});			
+		}
 
-        rollButton = new Gtk.Button.with_label ("Roll");
-        rollButton.hexpand = false;
-        rollButton.vexpand = false;
-        rollButton.margin = 10;
-        rollButton.clicked.connect (on_rollButton_clicked);
-        webKitGrid.attach(rollButton, 2, 5, 1, 1);
+		public static bool supports_gtk_322 () {
+			return Gtk.check_version (3, 22, 0) == null;
+		}
 
-        var pane = new Gtk.Paned (Gtk.Orientation.HORIZONTAL);
-        pane.pack1 (source_list, false, false);
-        pane.pack2 (webKitGrid, true, false);
-
-        this.add (pane);
-    }
-
-    public static int main (string[] args) {
-		Gtk.init (ref args);
-
-		Application app = new Application ();
-		app.show_all ();
-		Gtk.main ();
-		return 0;
-    }
-
-    private void on_rollButton_clicked () {
-      File resource;
-      resource = File.new_for_uri ("resource:///data/test.html");
-      if (resource.query_exists ()) {
-        try {
-          uint8[] contents;
-          string etag_out;
-          resource.load_contents (null, out contents, out etag_out);
-          this.web_view.load_html((string) contents, null);
-        } 
-        catch (Error e) {
-          print ("Error: %s\n", e.message);
-        }
-      } 
-      else {
-          print ("Could not find resource file\n");
-      }
-    }
+	}
 }
