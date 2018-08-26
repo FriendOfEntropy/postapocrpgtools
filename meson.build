@@ -16,6 +16,19 @@ gtk_dep = dependency('gtk+-3.0', version: '>=3.6.0')
 webkit2gtk_dep = dependency('webkit2gtk-4.0', version: '>= 2.20.5')
 gsl_dep = dependency ('gsl')
 granite_dep = dependency ('granite')
+json_dep = dependency ('json-glib-1.0', version: '>=1.0')
+
+
+code_files = files(
+    'src/Application.vala',
+    'src/Constants.vala',
+    'src/MainWindow.vala',
+    'src/CharacterGeneratorView.vala'
+)
+
+# librpgcore subproject via git submodule
+librpgcore = subproject('librpgcore')
+librpgcore_sp_dep = librpgcore.get_variable('lib_dep')
 
 dependencies = [
     glib_dep,
@@ -24,15 +37,10 @@ dependencies = [
     gtk_dep,
     gsl_dep,
     granite_dep,
-    webkit2gtk_dep
+    webkit2gtk_dep,
+    json_dep,
+    librpgcore_sp_dep
 ]
-
-code_files = files(
-    'src/Application.vala',
-    'src/Constants.vala',
-    'src/MainWindow.vala',
-    'src/CharacterGeneratorView.vala'
-)
 
 executable(
     meson.project_name(),

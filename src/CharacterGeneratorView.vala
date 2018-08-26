@@ -22,6 +22,7 @@
 using Gtk;
 using WebKit;
 using Granite;
+using RPGCore;
 
 namespace PostApocRPGTools {
 	public class CharacterGeneratorView : Gtk.Box {
@@ -127,7 +128,15 @@ namespace PostApocRPGTools {
 					uint8[] contents;
 					string etag_out;
 					resource.load_contents (null, out contents, out etag_out);
-					webView.load_html((string) contents, null);
+					string htmlTemplate = (string) contents;
+
+					CharacterGenerator g = new CharacterGenerator ();
+					Character c = g.generate_random_character ();
+
+					string finalResults = htmlTemplate.replace ("<primeattributetable></primeattributetable>", c.to_html());
+
+					webView.load_html(finalResults, null);
+
 					saveButton.get_style_context ().add_class (Gtk.STYLE_CLASS_SUGGESTED_ACTION);
 					saveButton.sensitive = true;
 					rollButton.get_style_context ().remove_class (Gtk.STYLE_CLASS_SUGGESTED_ACTION);
