@@ -1,0 +1,3 @@
+[submodule "librpgcore"]
+	path = librpgcore
+	url = https://github.com/FriendOfEntropy/librpgcore
