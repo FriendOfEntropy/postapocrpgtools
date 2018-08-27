@@ -23,7 +23,9 @@ code_files = files(
     'src/Application.vala',
     'src/Constants.vala',
     'src/MainWindow.vala',
-    'src/CharacterGeneratorView.vala'
+    'src/renderers/AbstractHTMLRenderer.vala',
+    'src/renderers/CharacterHTMLRenderer.vala',
+    'src/views/CharacterGeneratorView.vala'
 )
 
 # librpgcore subproject via git submodule

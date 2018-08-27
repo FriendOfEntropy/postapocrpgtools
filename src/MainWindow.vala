@@ -20,6 +20,7 @@
 */
 
 using Granite;
+using PostApocRPGTools.Views;
 
 namespace PostApocRPGTools { 
 

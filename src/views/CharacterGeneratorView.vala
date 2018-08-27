@@ -23,8 +23,9 @@ using Gtk;
 using WebKit;
 using Granite;
 using RPGCore;
+using PostApocRPGTools.Renderers;
 
-namespace PostApocRPGTools {
+namespace PostApocRPGTools.Views {
 	public class CharacterGeneratorView : Gtk.Box {
 		public signal void generated ();
 		public signal void saved ();
@@ -123,24 +124,15 @@ namespace PostApocRPGTools {
 
 		public async void roll_mutant (bool silent = false) {
 			try {
-				File resource = File.new_for_uri ("resource:///data/test.html");
-				if (resource.query_exists ()) {
-					uint8[] contents;
-					string etag_out;
-					resource.load_contents (null, out contents, out etag_out);
-					string htmlTemplate = (string) contents;
+				CharacterGenerator g = new CharacterGenerator ();
+				Character c = g.generate_random_character ();
+        CharacterHTMLRenderer renderer =  new CharacterHTMLRenderer ();
 
-					CharacterGenerator g = new CharacterGenerator ();
-					Character c = g.generate_random_character ();
+				webView.load_html(renderer.render_all (c), null);
 
-					string finalResults = htmlTemplate.replace ("<primeattributetable></primeattributetable>", c.to_html());
-
-					webView.load_html(finalResults, null);
-
-					saveButton.get_style_context ().add_class (Gtk.STYLE_CLASS_SUGGESTED_ACTION);
-					saveButton.sensitive = true;
-					rollButton.get_style_context ().remove_class (Gtk.STYLE_CLASS_SUGGESTED_ACTION);
-				}
+				saveButton.get_style_context ().add_class (Gtk.STYLE_CLASS_SUGGESTED_ACTION);
+				saveButton.sensitive = true;
+				rollButton.get_style_context ().remove_class (Gtk.STYLE_CLASS_SUGGESTED_ACTION);
 			}
 			catch (Error e) {
 				set_widget_visible (content, true);
