@@ -2,6 +2,17 @@
 <gresources>
   <gresource prefix="data">
     <file compressed="true">test.html</file>
+  </gresource>
+  <gresource prefix="data">
     <file alias="logo128">logo128.png</file>
   </gresource>
+  <gresource prefix="data/icons/mainmenu">
+    <file alias="rollingdice.png">icons/mainmenu/24_rolling_dice.png</file>
+  </gresource>
+  <gresource prefix="data/icons/mainmenu">
+    <file alias="biohazard.png">icons/mainmenu/24_biohazard.png</file>
+  </gresource>
+  <gresource prefix="data/icons/mainmenu">
+    <file alias="d20.png">icons/mainmenu/24_d20.png</file>
+  </gresource>  
 </gresources>

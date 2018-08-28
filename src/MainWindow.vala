@@ -55,13 +55,36 @@ namespace PostApocRPGTools {
 			var diceCategory = new Widgets.SourceList.ExpandableItem ("Dice");
 
 			var mutantItem = new Widgets.SourceList.Item ("Mutant");
-			characterCategory.add (mutantItem);
+			try {
+				mutantItem.icon = new Gdk.Pixbuf.from_resource("/data/icons/mainmenu/biohazard.png");
+			}
+			catch (Error er) {
+				//mutantItem.name = er.message;
+			}
 
+			characterCategory.add (mutantItem);
+			
 			var diceItem = new Widgets.SourceList.Item ("Dice");
-			diceCategory.add (diceItem);        
+			diceCategory.add (diceItem);   
+			diceItem.selectable = false;     
 
 			var rangeItem = new Widgets.SourceList.Item ("Range");
 			diceCategory.add (rangeItem); 
+			rangeItem.selectable = false;
+
+			try {
+				diceItem.icon = new Gdk.Pixbuf.from_resource("/data/icons/mainmenu/rollingdice.png");
+			}
+			catch (Error er) {
+				//mutantItem.name = er.message;
+			}
+			
+			try {
+				rangeItem.icon = new Gdk.Pixbuf.from_resource("/data/icons/mainmenu/d20.png");
+			}
+			catch (Error er) {
+				//mutantItem.name = er.message;
+			}
 
 			var root = mainMenuSourceList.root;
 			root.add (characterCategory);
@@ -106,3 +129,14 @@ namespace PostApocRPGTools {
 
 	}
 }
+
+				//  string[] resourceArray = resources_enumerate_children ("/data/icons", ResourceLookupFlags.NONE);				
+				//  StringBuilder sb = new StringBuilder();
+				//  foreach (string resName in resourceArray) {
+				//  	sb.append(resName + "\n");
+				//  }
+				//  Gtk.MessageDialog msg = new Gtk.MessageDialog (this, Gtk.DialogFlags.MODAL, Gtk.MessageType.WARNING, Gtk.ButtonsType.OK_CANCEL, sb.str);
+				//  msg.response.connect ((response_id) => {
+				//  	msg.destroy();
+				//  });
+				//  msg.show ();
