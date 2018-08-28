@@ -40,7 +40,8 @@
 		}
 
 		/* Mutations Table */
-		table.mutations {
+		table.mutations,
+		table.defects {
 			table-layout: auto;
 			background-color: #3a9104;
 			color: white;
@@ -51,27 +52,31 @@
 		}
 
 		table.mutations th,
-		table.mutations td {
+		table.mutations td,
+		table.defects th,
+		table.defects td {
 			border: 1px solid black;
 			border-collapse: collapse;
 			padding-right: 5px;
 			text-align: left;
 		}
-
-
 	</style>
 </head>
 
 <body>
 	<h1>Random Mutant</h1>
 	<p>
-	<h3>Prime Attributes</h3>
-	<primeattributetable/>
+		<h3>Prime Attributes</h3>
+		<primeattributetable/>
 	</p>
 	<p>
-	<h3>Mutations</h3>
-	<mutationtable/>
+		<h3>Mutations</h3>
+		<mutationtable/>
 	</p>
+	<p>
+		<h3>Defects</h3>
+		<defecttable/>
+		</p>	
 </body>
 
 </html>

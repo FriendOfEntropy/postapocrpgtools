@@ -38,6 +38,7 @@ namespace PostApocRPGTools.Renderers {
 
 					result = htmlTemplate.replace ("<primeattributetable/>", render_prime_attributes (c));
 					result = result.replace ("<mutationtable/>", render_mutations (c));
+					result = result.replace ("<defecttable/>", render_defects (c));
 				}
 			}
 			catch (Error e) {
@@ -104,8 +105,19 @@ namespace PostApocRPGTools.Renderers {
 			return builder.str;
 		}
 
-		public string render_defects () {
-			return "";
+		public string render_defects (Character c) {
+			StringBuilder builder = new StringBuilder();
+			
+			builder.append (render_start_tag ("table", "defects"));
+			builder.append ("<tr><th>Name</th></tr>\n");
+			
+			foreach (var entry in c.defects.entries) {
+				Mutation mut = entry.value;
+				builder.append ("<tr><td>" + mut.name + "</td></tr>");
+			}
+			
+			builder.append (render_end_tag ("table"));
+			return builder.str;
 		}
 
 
