@@ -81,9 +81,9 @@ namespace PostApocRPGTools.Renderers {
       StringBuilder builder = new StringBuilder();
       builder.append (render_start_tag ("tr", null));
       builder.append("<td>%s</td>".printf (ability.abbreviation));
-      builder.append("<td>" + ability.name + "</td>");
-      builder.append("<td>" + ability.score.to_string() + "</td>");
-      builder.append("<td>" + ability.modifier.to_string() + "</td>");
+      builder.append("<td>%s</td>".printf (ability.name));
+      builder.append("<td>%s</td>".printf (ability.score.to_string()));
+      builder.append("<td>%s</td>".printf (ability.modifier.to_string()));
 			builder.append (render_end_tag ("tr"));
       return builder.str;
     }
@@ -91,8 +91,10 @@ namespace PostApocRPGTools.Renderers {
 
 		public string render_mutations (Character c) {
 			StringBuilder builder = new StringBuilder();
+			
 			builder.append (render_start_tag ("table", "mutations"));
 			builder.append ("<tr><th>Name</th></tr>\n");
+			
 			foreach (var entry in c.mutations.entries) {
 				Mutation mut = entry.value;
 				builder.append ("<tr><td>" + mut.name + "</td></tr>");
