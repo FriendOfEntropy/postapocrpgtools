@@ -52,7 +52,7 @@ namespace PostApocRPGTools {
 			//sidebar.attach (action_bar, 0, 1, 1, 1);
 
 			var characterCategory = new Widgets.SourceList.ExpandableItem ("Characters");
-			var diceCategory = new Widgets.SourceList.ExpandableItem ("Dice");
+			//var diceCategory = new Widgets.SourceList.ExpandableItem ("Dice");
 
 			var mutantItem = new Widgets.SourceList.Item ("Mutant");
 			try {
@@ -64,31 +64,31 @@ namespace PostApocRPGTools {
 
 			characterCategory.add (mutantItem);
 			
-			var diceItem = new Widgets.SourceList.Item ("Dice");
-			diceCategory.add (diceItem);   
-			diceItem.selectable = false;     
+			//  var diceItem = new Widgets.SourceList.Item ("Dice");
+			//  diceCategory.add (diceItem);   
+			//  diceItem.selectable = false;     
 
-			var rangeItem = new Widgets.SourceList.Item ("Range");
-			diceCategory.add (rangeItem); 
-			rangeItem.selectable = false;
+			//  var rangeItem = new Widgets.SourceList.Item ("Range");
+			//  diceCategory.add (rangeItem); 
+			//  rangeItem.selectable = false;
 
-			try {
-				diceItem.icon = new Gdk.Pixbuf.from_resource("/data/icons/mainmenu/rollingdice.png");
-			}
-			catch (Error er) {
-				//mutantItem.name = er.message;
-			}
+			//  try {
+			//  	diceItem.icon = new Gdk.Pixbuf.from_resource("/data/icons/mainmenu/rollingdice.png");
+			//  }
+			//  catch (Error er) {
+			//  	//mutantItem.name = er.message;
+			//  }
 			
-			try {
-				rangeItem.icon = new Gdk.Pixbuf.from_resource("/data/icons/mainmenu/d20.png");
-			}
-			catch (Error er) {
-				//mutantItem.name = er.message;
-			}
+			//  try {
+			//  	rangeItem.icon = new Gdk.Pixbuf.from_resource("/data/icons/mainmenu/d20.png");
+			//  }
+			//  catch (Error er) {
+			//  	//mutantItem.name = er.message;
+			//  }
 
 			var root = mainMenuSourceList.root;
 			root.add (characterCategory);
-			root.add (diceCategory);
+			//root.add (diceCategory);
 
 			characterGeneratorView = new CharacterGeneratorView ();
 
