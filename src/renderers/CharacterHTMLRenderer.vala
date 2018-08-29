@@ -51,8 +51,8 @@ namespace PostApocRPGTools.Renderers {
 
 			StringBuilder builder = new StringBuilder();
 
-      builder.append (render_start_tag ("table", "primeAttributes"));
-      builder.append ("<tr><th>Abbrev</th><th>Ability</th><th>Score</th><th>Modifier</th></tr>\n");
+      builder.append (render_start_tag ("table", "primeAttributes", null));
+      builder.append ("<thead><tr><th>Abbrev</th><th>Ability</th><th>Score</th><th>Modifier</th></tr></thead>\n");
 
       Ability ability = c.abilities.get("STR");
       builder.append (render_ability_row(ability));
@@ -80,11 +80,11 @@ namespace PostApocRPGTools.Renderers {
 
     private string render_ability_row(Ability ability) {
       StringBuilder builder = new StringBuilder();
-      builder.append (render_start_tag ("tr", null));
+      builder.append (render_start_tag ("tr", null, null));
       builder.append("<td>%s</td>".printf (ability.abbreviation));
       builder.append("<td>%s</td>".printf (ability.name));
       builder.append("<td>%s</td>".printf (ability.score.to_string()));
-      builder.append("<td>%s</td>".printf (ability.modifier.to_string()));
+      builder.append("<td>%+d</td>".printf (ability.modifier));
 			builder.append (render_end_tag ("tr"));
       return builder.str;
     }
@@ -93,33 +93,60 @@ namespace PostApocRPGTools.Renderers {
 		public string render_mutations (Character c) {
 			StringBuilder builder = new StringBuilder();
 			
-			builder.append (render_start_tag ("table", "mutations"));
-			builder.append ("<tr><th>Name</th></tr>\n");
+			builder.append (render_start_tag ("div", null, "accordionWrapper"));
+			builder.append (render_start_tag ("ul", null, null));
 			
 			foreach (var entry in c.mutations.entries) {
 				Mutation mut = entry.value;
-				builder.append ("<tr><td>" + mut.name + "</td></tr>");
+				builder.append (render_start_tag ("li", null, null));
+				
+				builder.append ("<input type='checkbox' checked>\n");	
+				builder.append ("<i></i>\n");	
+				
+				builder.append (render_start_tag ("h3", "accordionItem", null));
+				builder.append (mut.name);
+				builder.append (render_end_tag ("h3"));	
+
+				builder.append (render_start_tag ("p", "accordionParagraph", null));
+				builder.append (mut.description);
+				builder.append (render_end_tag ("p"));	
+
+				builder.append (render_end_tag ("li"));	
 			}
 			
-			builder.append (render_end_tag ("table"));
+			builder.append (render_end_tag ("ul"));
+			builder.append (render_end_tag ("div"));
 			return builder.str;
 		}
 
 		public string render_defects (Character c) {
 			StringBuilder builder = new StringBuilder();
 			
-			builder.append (render_start_tag ("table", "defects"));
-			builder.append ("<tr><th>Name</th></tr>\n");
+			builder.append (render_start_tag ("div", null, "accordionWrapper"));
+			builder.append (render_start_tag ("ul", null, null));
 			
 			foreach (var entry in c.defects.entries) {
 				Mutation mut = entry.value;
-				builder.append ("<tr><td>" + mut.name + "</td></tr>");
+				builder.append (render_start_tag ("li", null, null));
+				
+				builder.append ("<input type='checkbox' checked>\n");	
+				builder.append ("<i></i>\n");	
+				
+				builder.append (render_start_tag ("h3", "accordionItem", null));
+				builder.append (mut.name);
+				builder.append (render_end_tag ("h3"));	
+
+				builder.append (render_start_tag ("p", "accordionParagraph", null));
+				builder.append (mut.description);
+				builder.append (render_end_tag ("p"));	
+
+				builder.append (render_end_tag ("li"));	
 			}
 			
-			builder.append (render_end_tag ("table"));
+			builder.append (render_end_tag ("ul"));
+			builder.append (render_end_tag ("div"));
 			return builder.str;
 		}
-
 
 	}
 }

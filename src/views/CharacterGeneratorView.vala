@@ -42,6 +42,7 @@ namespace PostApocRPGTools.Views {
 		private Gtk.Box buttonBox;
 		private Gtk.Box bottomBox;
 		private unowned Gtk.Container content;
+		private string currentHtml = "";
 
 		construct {
 			webView = new WebView ();
@@ -109,16 +110,34 @@ namespace PostApocRPGTools.Views {
 		}
 
 		public async void save (bool silent = false) {
+			Gtk.FileChooserDialog chooser = new Gtk.FileChooserDialog ("Save File", null, 
+																					Gtk.FileChooserAction.SAVE,
+																					_("_Cancel"), Gtk.ResponseType.CANCEL,
+																					_("_Save"), Gtk.ResponseType.ACCEPT);
+			
 			try {
-				toast.title = _("Changes successfully saved");
-				saveButton.get_style_context ().remove_class (Gtk.STYLE_CLASS_SUGGESTED_ACTION);
-				saveButton.sensitive = false;
-				rollButton.get_style_context ().add_class (Gtk.STYLE_CLASS_SUGGESTED_ACTION);
-				toast.send_notification ();
+				chooser.set_current_name ("Untitled Mutant");
+
+				if (chooser.run() == Gtk.ResponseType.ACCEPT) {
+						File chosenFile = chooser.get_file (); 	
+
+						bool successfulSave = chosenFile.replace_contents (currentHtml.data, null, false, 
+																		FileCreateFlags.REPLACE_DESTINATION, null);
+
+						saveButton.get_style_context ().remove_class (Gtk.STYLE_CLASS_SUGGESTED_ACTION);
+						saveButton.sensitive = false;
+						rollButton.get_style_context ().add_class (Gtk.STYLE_CLASS_SUGGESTED_ACTION);
+						toast.title = _(chosenFile.get_basename () + " Saved");
+						toast.send_notification ();
+						chooser.close();
+					}
 			}
 			catch (Error e) {
-				set_widget_visible (errorInfoBar, true);
-				errorLabel.label = _("Unable to save changes: %s".printf (e.message));
+				toast.title = _(e.message);
+				toast.send_notification ();
+			}
+			finally {
+				chooser.destroy ();
 			}
 		}
 
@@ -126,9 +145,11 @@ namespace PostApocRPGTools.Views {
 			try {
 				CharacterGenerator g = new CharacterGenerator ();
 				Character c = g.generate_random_character ();
-        CharacterHTMLRenderer renderer =  new CharacterHTMLRenderer ();
+				CharacterHTMLRenderer renderer =  new CharacterHTMLRenderer ();
 
-				webView.load_html(renderer.render_all (c), null);
+				currentHtml = renderer.render_all (c);
+
+				webView.load_html(currentHtml, null);
 
 				saveButton.get_style_context ().add_class (Gtk.STYLE_CLASS_SUGGESTED_ACTION);
 				saveButton.sensitive = true;

@@ -23,17 +23,23 @@ namespace PostApocRPGTools.Renderers {
 
   public abstract class AbstractHTMLRenderer : Object {
 
-    public string render_start_tag (string tag_name, string? class_name) {
+
+
+    public string render_start_tag (string tag_name, string? class_name, string? id_name) {
 			StringBuilder builder = new StringBuilder();
       builder.append("<");
       builder.append(tag_name);
       if (class_name != null) {
         builder.append(" class='%s'".printf (class_name));
       }
+      if (id_name != null) {
+        builder.append(" id='%s'".printf (id_name));
+      }
       builder.append(">\n");
       return builder.str;
     }
     
+
     public string render_end_tag (string tag_name) {
 			StringBuilder builder = new StringBuilder();
       builder.append("</%s>".printf (tag_name));

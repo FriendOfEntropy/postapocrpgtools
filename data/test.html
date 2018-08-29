@@ -3,37 +3,48 @@
 <head>
 	<style>
 
-		/* caption {
-			caption-side: top;
-		} */
+		body {
+			font-family: Arial, Verdana, Tahoma, Helvetica, sans-serif;
+		}
+
 
 		/* Prime Attributes Table */
 		table.primeAttributes {
 			table-layout: auto;
-			background-color: #3a9104;
-			color: white;
-			border: 1px solid black;
+			background-color: #FFFFFF;
 			border-collapse: collapse;
-			font-size:15px;
-			font-family:Arial, Verdana, Tahoma, Helvetica, sans-serif;			
+			font-size: 15px;
+			font-family: Arial, Verdana, Tahoma, Helvetica, sans-serif;
+		}
+
+		table.primeAttributes thead {
+			background: #206B00;
+			color: white;
+			background: -moz-linear-gradient(top, #589040 0%, #367919 66%, #206B00 100%);
+			background: -webkit-linear-gradient(top, #589040 0%, #367919 66%, #206B00 100%);
+			background: linear-gradient(to bottom, #589040 0%, #367919 66%, #206B00 100%);
+			border-bottom: 2px solid #485a6c;
+		}
+
+		table.primeAttributes tr:nth-child(even) {
+			background: #D4D4D4;
 		}
 
 		table.primeAttributes th,
 		table.primeAttributes td {
-			border: 1px solid black;
 			border-collapse: collapse;
 			padding-right: 5px;
 		}
 
 		table.primeAttributes th:nth-child(1),
-		table.primeAttributes th:nth-child(2),		
+		table.primeAttributes th:nth-child(2),
 		table.primeAttributes td:nth-child(1),
 		table.primeAttributes td:nth-child(2) {
 			text-align: left;
 		}
 
 		table.primeAttributes th:nth-child(3),
-		table.primeAttributes th:nth-child(4),		
+		table.primeAttributes th:nth-child(4),
 		table.primeAttributes td:nth-child(3),
 		table.primeAttributes td:nth-child(4) {
 			text-align: right;
@@ -43,40 +54,219 @@
 		table.mutations,
 		table.defects {
 			table-layout: auto;
-			background-color: #3a9104;
-			color: white;
-			border: 1px solid black;
+			background-color: #FFFFFF;
 			border-collapse: collapse;
-			font-size:15px;
-			font-family:Arial, Verdana, Tahoma, Helvetica, sans-serif;			
+			font-size: 15px;
+			font-family: Arial, Verdana, Tahoma, Helvetica, sans-serif;
+		}
+
+		table.mutations thead,
+		table.defects thead {
+			background: #206B00;
+			color: white;
+			background: -moz-linear-gradient(top, #589040 0%, #367919 66%, #206B00 100%);
+			background: -webkit-linear-gradient(top, #589040 0%, #367919 66%, #206B00 100%);
+			background: linear-gradient(to bottom, #589040 0%, #367919 66%, #206B00 100%);
+			border-bottom: 2px solid #485a6c;
+		}
+
+		table.mutations tr:nth-child(even),
+		table.defects tr:nth-child(even) {
+			background: #D4D4D4;
 		}
 
 		table.mutations th,
 		table.mutations td,
 		table.defects th,
 		table.defects td {
-			border: 1px solid black;
 			border-collapse: collapse;
 			padding-right: 5px;
 			text-align: left;
 		}
+
+#accordionWrapper {
+  min-height: 0;
+  display: inline-block;
+  /* position: absolute; 
+  left: 15px; */
+  margin: 0;
+  transform: translate(0, 0);
+  background-color: #d4d4d4;
+  max-width: 500px;
+	padding-top: 15px;
+	padding-right: 15px;
+	padding-bottom: 15px;
+	padding-left: 25px;
+
+}
+@media (max-width: 550px) {
+  #accordionWrapper {
+    box-sizing: border-box;
+    transform: translate(0, 0);
+    max-width: 100%;
+    min-height: 100%;
+    margin: 0;
+    left: 0;
+  }
+}
+
+
+h3.accordionItem {
+  font-weight: 500;
+  letter-spacing: 1px;
+  display: block;
+  background-color: #d4d4d4;
+  margin: 0;
+  cursor: pointer;
+	font-size: 15px;
+	font-family: Arial, Verdana, Tahoma, Helvetica, sans-serif;
+}
+p.accordionParagraph {
+  color: rgba(48, 69, 92, 0.8);
+  line-height: 18px;
+  letter-spacing: 1px;
+  position: relative;
+  overflow: hidden;
+  max-height: 800px;
+  opacity: 1;
+  transform: translate(0, 0);
+  margin-top: 14px;
+  z-index: 2;
+  transition: all 500ms ease;
+	font-size: 14px;
+	font-family: Arial, Verdana, Tahoma, Helvetica, sans-serif;
+}
+p.accordionParagraph,
+ul li i:before,
+ul li i:after {
+  transition: all 0.25s ease-in-out;
+}
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+ul li {
+  position: relative;
+  padding: 0;
+  margin: 0;
+  padding-bottom: 4px;
+  padding-top: 12px;
+  border-top: 1px dotted #dce7eb;
+}
+ul li i {
+  position: absolute;
+  transform: translate(-6px, 0);
+  margin-top: 9px;
+  right: 0;
+}
+ul li i:before,
+ul li i:after {
+  content: "";
+  position: absolute;
+  background-color: #000;
+  width: 3px;
+  height: 16px;
+}
+ul li i:before {
+  transform: translate(2px, 0) rotate(45deg);
+}
+ul li i:after {
+  transform: translate(2px, 0) rotate(-45deg);
+}
+ul li input[type=checkbox] {
+  position: absolute;
+  cursor: pointer;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  opacity: 0;
+}
+ul li input[type=checkbox]:checked ~ p {
+  margin-top: 0;
+  max-height: 0;
+  opacity: 0;
+  transform: translate(0, 50%);
+}
+ul li input[type=checkbox]:checked ~ i:before {
+  margin-top: 9px;
+  height: 9px;
+  transform: translate(2px, 0) rotate(45deg);
+}
+ul li input[type=checkbox]:checked ~ i:after {
+  margin-top: 9px;
+  height: 9px;
+  transform: translate(-2px, 0) rotate(-45deg);
+}
+ul li:nth-of-type(1) {
+  border-top: none;
+  animation-delay: 0.5s;
+}
+ul li:nth-of-type(2) {
+  animation-delay: 0.75s;
+}
+ul li:nth-of-type(3) {
+  animation-delay: 1s;
+}
+ul li:last-of-type {
+  padding-bottom: 0;
+}
+li {
+  animation: bounceInUp 1s ease both;
+}
+@-webkit-keyframes bounceInUp {
+  0% {
+    opacity: 0;
+    -webkit-transform: translateY(2000px);
+  }
+  60% {
+    opacity: 1;
+    -webkit-transform: translateY(-30px);
+  }
+  80% {
+    -webkit-transform: translateY(10px);
+  }
+  100% {
+    -webkit-transform: translateY(0);
+  }
+}
+@keyframes bounceInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(2000px);
+  }
+  60% {
+    opacity: 1;
+    transform: translateY(-30px);
+  }
+  80% {
+    transform: translateY(10px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
 	</style>
 </head>
 
 <body>
-	<h1>Random Mutant</h1>
-	<p>
-		<h3>Prime Attributes</h3>
-		<primeattributetable/>
-	</p>
-	<p>
-		<h3>Mutations</h3>
-		<mutationtable/>
-	</p>
-	<p>
-		<h3>Defects</h3>
-		<defecttable/>
-		</p>	
+	<h2>Random Mutant</h2>
+	<br/>
+	<h3>Prime Attributes</h3>
+	<primeattributetable/>
+	<br/>
+	<br/>
+	<br/>
+	<h3>Mutations</h3>
+	<mutationtable/>
+	<br/>
+	<br/>
+	<br/>
+	<h3>Defects</h3>
+	<defecttable/>
+	<br/>
+	<br/>
+	<br/>
 </body>
 
 </html>

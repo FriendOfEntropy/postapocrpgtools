@@ -7,6 +7,6 @@ Exec=com.github.friendofentropy.postapocrpgtools
 Icon=com.github.friendofentropy.postapocrpgtools
 Terminal=false
 Categories=GNOME;GTK;Games;
-Keywords=rpg;game;utilities;
+Keywords=game;rpg;utilities;
 X-GNOME-Gettext-Domain=com.github.friendofentropy.postapocrpgtools
 X-GNOME-UsesNotifications=false
