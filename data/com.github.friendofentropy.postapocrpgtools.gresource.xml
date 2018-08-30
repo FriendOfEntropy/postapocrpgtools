@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gresources>
   <gresource prefix="data">
-    <file compressed="true">test.html</file>
+    <file compressed="true">characterTemplate.html</file>
   </gresource>
   <gresource prefix="data">
     <file alias="logo128">logo128.png</file>

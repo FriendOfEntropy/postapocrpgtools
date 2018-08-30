@@ -25,7 +25,7 @@ namespace PostApocRPGTools.Renderers {
 
 
 
-    public string render_start_tag (string tag_name, string? class_name, string? id_name) {
+    public string render_start_tag (string tag_name, string? class_name = null, string? id_name = null) {
 			StringBuilder builder = new StringBuilder();
       builder.append("<");
       builder.append(tag_name);

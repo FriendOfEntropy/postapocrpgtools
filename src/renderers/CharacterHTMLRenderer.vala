@@ -29,7 +29,7 @@ namespace PostApocRPGTools.Renderers {
 			string result = "Error";
 
 			try {
-				File resource = File.new_for_uri ("resource:///data/test.html");
+				File resource = File.new_for_uri ("resource:///data/characterTemplate.html");
 				if (resource.query_exists ()) {
 					uint8[] contents;
 					string etag_out;
@@ -51,7 +51,7 @@ namespace PostApocRPGTools.Renderers {
 
 			StringBuilder builder = new StringBuilder();
 
-      builder.append (render_start_tag ("table", "primeAttributes", null));
+      builder.append (render_start_tag ("table", "primeAttributes"));
       builder.append ("<thead><tr><th>Abbrev</th><th>Ability</th><th>Score</th><th>Modifier</th></tr></thead>\n");
 
       Ability ability = c.abilities.get("STR");
@@ -80,7 +80,7 @@ namespace PostApocRPGTools.Renderers {
 
     private string render_ability_row(Ability ability) {
       StringBuilder builder = new StringBuilder();
-      builder.append (render_start_tag ("tr", null, null));
+      builder.append (render_start_tag ("tr"));
       builder.append("<td>%s</td>".printf (ability.abbreviation));
       builder.append("<td>%s</td>".printf (ability.name));
       builder.append("<td>%s</td>".printf (ability.score.to_string()));
@@ -94,20 +94,20 @@ namespace PostApocRPGTools.Renderers {
 			StringBuilder builder = new StringBuilder();
 			
 			builder.append (render_start_tag ("div", null, "accordionWrapper"));
-			builder.append (render_start_tag ("ul", null, null));
+			builder.append (render_start_tag ("ul"));
 			
 			foreach (var entry in c.mutations.entries) {
 				Mutation mut = entry.value;
-				builder.append (render_start_tag ("li", null, null));
+				builder.append (render_start_tag ("li"));
 				
 				builder.append ("<input type='checkbox' checked>\n");	
 				builder.append ("<i></i>\n");	
 				
-				builder.append (render_start_tag ("h3", "accordionItem", null));
+				builder.append (render_start_tag ("h3", "accordionItem"));
 				builder.append (mut.name);
 				builder.append (render_end_tag ("h3"));	
 
-				builder.append (render_start_tag ("p", "accordionParagraph", null));
+				builder.append (render_start_tag ("p", "accordionParagraph"));
 				builder.append (mut.description);
 				builder.append (render_end_tag ("p"));	
 
@@ -123,20 +123,20 @@ namespace PostApocRPGTools.Renderers {
 			StringBuilder builder = new StringBuilder();
 			
 			builder.append (render_start_tag ("div", null, "accordionWrapper"));
-			builder.append (render_start_tag ("ul", null, null));
+			builder.append (render_start_tag ("ul"));
 			
 			foreach (var entry in c.defects.entries) {
 				Mutation mut = entry.value;
-				builder.append (render_start_tag ("li", null, null));
+				builder.append (render_start_tag ("li"));
 				
 				builder.append ("<input type='checkbox' checked>\n");	
 				builder.append ("<i></i>\n");	
 				
-				builder.append (render_start_tag ("h3", "accordionItem", null));
+				builder.append (render_start_tag ("h3", "accordionItem"));
 				builder.append (mut.name);
 				builder.append (render_end_tag ("h3"));	
 
-				builder.append (render_start_tag ("p", "accordionParagraph", null));
+				builder.append (render_start_tag ("p", "accordionParagraph"));
 				builder.append (mut.description);
 				builder.append (render_end_tag ("p"));	
 
